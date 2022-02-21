@@ -1,2 +1,2 @@
 tasks:
-  - init: yes | sudo apt-get install pandoc
+  - command: yes | sudo apt-get install pandoc
