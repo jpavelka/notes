@@ -1,0 +1,76 @@
+<!-- TOC styling adapted from https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+<style>
+    nav#TOC li {
+        list-style-type: none;
+    }
+
+    nav#TOC li {
+        margin-left: -20pt;
+    }
+
+    nav#TOC {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #ddd;
+        overflow-x: hidden;
+        padding-top: 20px;
+        transition: 0.5s;
+    }
+
+    nav#TOC a {
+        padding: 2px 2px;
+        text-decoration: none;
+        font-size: 14pt;
+        color: #000;
+        display: block;
+        transition: 0.3s;
+    }
+
+    nav#TOC a:hover {
+        color: #f1f1f1;
+    }
+
+    .tocHeader {
+        top: 0;
+        font-size: 18pt !important;
+        margin-top: -10px;
+        margin-left: 15px;
+    }
+
+    .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px !important;
+        margin-left: 50px;
+    }
+
+    #main {
+        transition: margin-left .5s;
+        padding: 20px;
+    }
+
+    @media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
+        }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+    }
+</style>
+<script>
+    function openNav() {
+        document.getElementById("TOC").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+    function closeNav() {
+        document.getElementById("TOC").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
