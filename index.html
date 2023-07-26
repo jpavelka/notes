@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>parsed</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+  <style>
+      .ytEmbedContainer {
+          position: relative;
+          padding-bottom: 56.25%;
+          height: 0;
+          overflow: hidden;
+          max-width: 100%;
+      } .ytEmbedContainer iframe, .ytEmbedContainer object, .ytEmbedContainer embed {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+      }
+      .ytEmbedContainerContainer {
+          max-width: 640px;
+      }
+  </style>
+  <!-- TOC styling adapted from https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+  <style>
+      nav#TOC:nth-child(2) {
+          margin-top: 1rem;
+          box-shadow: rgba(0, 0, 0, 0.2) 2px 0px 10px 1px;
+      }
+      nav#TOC li {
+          list-style-type: none;
+      }
+
+      nav#TOC li {
+          margin-left: -20pt;
+      }
+
+      nav#TOC > ul {
+          padding-left: 1.5rem;
+          margin-bottom: 3rem;
+      }
+
+      nav#TOC {
+          height: 100%;
+          width: 0;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background-color: #ebebeb;
+          overflow-x: hidden;
+          padding-top: 1rem;
+          transition: 0.5s;
+          overflow-y: auto;
+      }
+
+      nav#TOC a {
+          text-decoration: none;
+          font-size: max(14pt, min(5vw, 1.3rem));
+          color: #000;
+          display: block;
+          transition: 0.3s;
+          padding-top: 0.2rem;
+          padding-bottom: 0.3rem;
+          border-bottom: 1pt solid lightgray;
+      }
+
+      nav#TOC a:hover {
+          color: #888;
+      }
+
+      #tocTop {
+          height: 1.5em;
+          display: flex;
+          justify-content: space-between;
+          padding-top: 0.5rem;
+          padding-bottom: 0.95rem;
+          position: fixed;
+          top: 0;
+          visibility: hidden;
+          background-color: #ebebeb;
+          z-index: 1;
+          border-bottom: 1pt solid gray;
+      }
+
+      .tocHeader {
+          font-size: max(14pt, min(1.5rem, 5vw));
+          padding-left: 0.5rem;
+      }
+
+      .closeBtn {
+          font-size: 36px !important;
+          margin-right: 2rem;
+          margin-top: -0.5rem;
+          border: none !important;
+      }
+
+      #main {
+          transition: margin-left .5s;
+          padding: 20px;
+      }
+
+      @media screen and (max-height: 450px) {
+          .sidenav {
+              padding-top: 15px;
+          }
+
+          .sidenav a {
+              font-size: 18px;
+          }
+      }
+  </style>
+  <script>
+      function openNav() {
+          document.getElementById("TOC").style.width = "min(45%, 250px)";
+          document.getElementById("main").style.marginLeft = "calc(min(45%, 250px) / 2)";
+          document.getElementById("tocTop").style.width = "min(45%, 250px)";
+          document.getElementById("tocTop").style.visibility = "visible";
+          setTimeout(() => {
+              if (isTight()){
+                  document.getElementById("main").style.marginLeft = 0;
+              }
+          }, 300)
+      }
+      function closeNav() {
+          document.getElementById("TOC").style.width = "0";
+          document.getElementById("main").style.marginLeft = "0";
+          document.getElementById("tocTop").style.visibility = "hidden";
+      }
+      function isTight() {
+          const mainLeft = document.getElementById('main').getBoundingClientRect().left
+          const tocRight = document.getElementById('TOC').getBoundingClientRect().right
+          return tocRight - mainLeft > 40
+      }
+      function closeNavIfSmall() {
+          if (isTight()){
+              closeNav()
+          }
+      }
+      function footnoteOnTooltipClick(id, innerHTML, refId) {
+          innerHTML = innerHTML.replaceAll('@@@', '"')
+          console.log(innerHTML);
+          const tooltipEl = document.getElementById(id);
+          if (tooltipEl == null) {
+              const newEl = document.createElement("span");
+              closeEl = document.createElement("div");
+              closeEl.classList = ['footnoteTooltipClose'];
+              closeEl.innerHTML = '&times;';
+              closeEl.setAttribute("onclick", "removeElById('" + id + "')");
+              newEl.appendChild(closeEl);
+              const refEl = document.getElementById(refId);
+              refEl.appendChild(newEl);
+              newEl.id = id;
+              newEl.innerHTML += innerHTML;
+              newEl.classList = ['footnoteTooltip'];
+          } else {
+              tooltipEl.remove();
+          }
+          
+      }
+      function removeElById(id) {
+          document.getElementById(id).remove();
+      }
+      window.onload = () => {
+          liEl = document.createElement('li');
+          aEl = document.createElement('a');
+          aEl.href = '#References';
+          aEl.innerHTML = 'References';
+          ulEl = document.getElementById('TOC').getElementsByTagName('ul')[0];
+          liEl.appendChild(aEl);
+          ulEl.appendChild(liEl);
+      }
+  </script>
+  <style>
+      .eqnos {
+          display: inline-block;
+          position: relative;
+          width: 100%;
+      }
+
+      .eqnos br {
+          display: none;
+      }
+
+      .eqnos-number {
+          position: absolute;
+          right: 0em;
+          top: 50%;
+          line-height: 0;
+      }
+  </style>
+  <style>
+      .navbar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          font-size: max(14pt, min(5vw, 1.3rem));
+          background-color: #ebebeb;
+          width: 100%;
+          border-bottom: 1pt solid gray;
+          padding-top: 0.5rem;
+          padding-bottom: 0.5rem;
+          display: flex;
+          justify-content: space-between;
+          z-index: 1;
+      }
+      #main {
+          font-size: max(14pt, min(1.5rem, 5vw));
+          width: max(min(80%, 20rem), calc(100% - min(45%, 250px) - 1rem));
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+      }
+      html {
+          scroll-padding-top: 2.5rem;
+          overflow-y: auto;
+      }
+      body {
+          scroll-padding-top: 2.5rem;
+          overflow-y: hidden;
+          max-width: none !important;
+      }
+      blockquote p {
+          background-color: #ebebeb;
+          padding: 0.5rem;
+      }
+      details {
+          cursor: pointer;
+      }
+      figure {
+          margin-inline: 0.5rem;
+      }
+      figure img {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          max-width: 100%;
+      }
+      figure figcaption {
+          font-size: max(12pt, min(1.1rem, 5.5vw));
+          text-align: center;
+      }
+      .footnoteTooltip {
+          background-color: #ebebeb;
+          padding: 1rem;
+          border: 1px solid #888;
+          position: absolute;
+          z-index: 1;
+          width: 75%;
+          left: 50%;
+          transform: translateX(-50%);
+          margin-top: 2rem;
+          font-size: max(14pt, min(5vw, 1.3rem));
+      }
+      a {
+          color: blue;
+      }
+      a:visited {
+          color: purple;
+      }
+      .footnoteTooltipClose {
+          color: #222;
+          float: right;
+          font-size: 36px;
+          font-weight: bold;
+          margin-top: -1.5rem;
+          margin-right: -0.5rem;
+      }
+      .footnoteTooltipClose:hover, .footnoteTooltipClose:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+      }
+      .footnote-ref sup{
+          cursor: pointer;
+          color: blue;
+      }
+      h1 {
+          position: relative;
+          margin-top: 5rem;
+      }
+      h1:before {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          background: black;
+          bottom: 150%;
+          left: 0;
+      }
+      *[role="doc-biblioref"] {
+          color: green !important;
+      }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class="navbar">
+    <div onclick="openNav()" style="padding-left: 1rem; cursor: pointer; color: blue">Contents</div>
+    <div style="text-align: center">Methods of OR</div>
+    <div style="text-align: right; padding-right: 1rem">Fall 2023</div>
+</div>
+<nav id="TOC" role="doc-toc">
+<div id="tocTop"><div class="tocHeader">Contents</div><div><a href="javascript:void(0)" class="closeBtn" onclick="closeNav()">&times;</a></div></div>
+<ul>
+<li><a href="#welcome" id="toc-welcome"><span
+class="toc-section-number">1</span> Welcome!</a>
+<ul>
+<li><a href="#sec:materials" id="toc-sec:materials"><span
+class="toc-section-number">1.1</span> Course materials</a></li>
+</ul></li>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">2</span> Introduction</a>
+<ul>
+<li><a href="#what-is-operations-research"
+id="toc-what-is-operations-research"><span
+class="toc-section-number">2.1</span> What is Operations
+Research?</a></li>
+<li><a href="#can-you-give-me-some-examples"
+id="toc-can-you-give-me-some-examples"><span
+class="toc-section-number">2.2</span> Can you give me some
+examples?</a></li>
+<li><a href="#or-in-practice" id="toc-or-in-practice"><span
+class="toc-section-number">2.3</span> OR in practice</a></li>
+<li><a href="#a-brief-history-of-or"
+id="toc-a-brief-history-of-or"><span
+class="toc-section-number">2.4</span> A brief history of OR</a></li>
+<li><a href="#topics-well-cover" id="toc-topics-well-cover"><span
+class="toc-section-number">2.5</span> Topics we’ll cover</a></li>
+</ul></li>
+<li><a href="#the-python-programming-language"
+id="toc-the-python-programming-language"><span
+class="toc-section-number">3</span> The Python programming language</a>
+<ul>
+<li><a href="#google-colab-notebooks"
+id="toc-google-colab-notebooks"><span
+class="toc-section-number">3.1</span> Google Colab notebooks</a></li>
+<li><a href="#some-python-basics" id="toc-some-python-basics"><span
+class="toc-section-number">3.2</span> Some python basics</a></li>
+<li><a href="#more-references" id="toc-more-references"><span
+class="toc-section-number">3.3</span> More references</a></li>
+</ul></li>
+<li><a href="#sec:lp" id="toc-sec:lp"><span
+class="toc-section-number">4</span> Linear Programming</a>
+<ul>
+<li><a href="#new-subsection" id="toc-new-subsection"><span
+class="toc-section-number">4.1</span> New Subsection</a></li>
+</ul></li>
+<li><a href="#blah" id="toc-blah"><span
+class="toc-section-number">5</span> Blah</a>
+<ul>
+<li><a
+href="#blahblahblahblahblah-blahblahblahblahblah-blahblahblahblahblah"
+id="toc-blahblahblahblahblah-blahblahblahblahblah-blahblahblahblahblah"><span
+class="toc-section-number">5.1</span> BlahBlahBlahBlahBlah
+BlahBlahBlahBlahBlah BlahBlahBlahBlahBlah</a></li>
+</ul></li>
+<li><a href="#integer-programming" id="toc-integer-programming"><span
+class="toc-section-number">6</span> Integer Programming</a></li>
+<li><a href="#blah-1" id="toc-blah-1"><span
+class="toc-section-number">7</span> Blah</a>
+<ul>
+<li><a href="#blahblah" id="toc-blahblah"><span
+class="toc-section-number">7.1</span> BlahBlah</a></li>
+</ul></li>
+</ul>
+</nav>
+<div id="main" onclick="closeNavIfSmall()">
+<h1 data-number="1" id="welcome"><span
+class="header-section-number">1</span> Welcome!</h1>
+<p>You’re reading the class notes for <em>IMSE 780: Methods of
+Operations Research</em> taught at Kansas State University during the
+Fall 2023 semester. This course is intended to give an overview of
+Operations Research (OR) at the graduate level. After this course,
+students will have a basic familiarity with various OR methodologies and
+be able to recognize when the methods can be applied in real-life
+scenarios. Students should also be able to apply the chosen methodology
+via Python code.</p>
+<h2 data-number="1.1" id="sec:materials"><span
+class="header-section-number">1.1</span> Course materials</h2>
+<p>The core of this course will be taught from these notes.
+Additionally, I encourage students to use the textbook <em>Introduction
+to Operations Research</em> <span class="citation"
+data-cites="classText">(<a href="#ref-classText"
+role="doc-biblioref">Hillier and Lieberman 2021</a>)</span> as a
+reference<span class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup onclick="footnoteOnTooltipClick('fn1Hover', '<b>Footnote 1:</b> The most recent version of this textbook is the 11th edition, which came out in 2021. I’m actually working from a 10th edition copy from 2015. Nothing about the course will require you to have a certain edition, or any book at all. But I think it’s a very useful reference.', 'fnref1')">1</sup></span>. The syllabus, assignments, and
+other course materials may be found via the <a
+href="https://k-state.instructure.com/">class Canvas site</a>.</p>
+<h1 data-number="2" id="introduction"><span
+class="header-section-number">2</span> Introduction</h1>
+<p>In this section we’ll cover the big picture questions: What is
+Operations Research? Where did it come from? What can I do with it?</p>
+<h2 data-number="2.1" id="what-is-operations-research"><span
+class="header-section-number">2.1</span> What is Operations
+Research?</h2>
+<p>If you’re like me, one of the first things you’ll do when learning a
+new subject is look it up on Wikipedia. As of this writing, <a
+href="https://en.wikipedia.org/wiki/Operations_research">their page on
+Operations Research</a> first defines OR as:</p>
+<blockquote>
+<p>The discipline that deals with the development and application of
+analytical methods to improve decision-making.</p>
+</blockquote>
+<p>I think this is a good first definition! Continuing on a bit, the
+article gets a little more specific:</p>
+<blockquote>
+<p>Employing techniques from other mathematical sciences, such as
+modeling, statistics, and optimization, operations research arrives at
+optimal or near-optimal solutions to decision-making problems.</p>
+</blockquote>
+<p>Right. So the practice of OR involves using mathematical techniques
+to find the best decision possible in a given situation (“optimal” is
+just fancy way of saying “best”<span class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup onclick="footnoteOnTooltipClick('fn2Hover', '<b>Footnote 2:</b> The pedant in me wants to point out that this word “optimal” is horribly misused in conversation fairly regularly, in the common misguided phrase “more optimal”. As I mentioned, “optimal” really just means “best”, and “best” is not on a sliding scale; either you have the best answer or you don’t. One choice can’t be “more best” than another, just as one solution can’t be “more optimal” than another. I think I’m fighting a losing battle on this, but maybe for the sake of this course we can all agree to never put the words “more” and “optimal” next to each other? Thanks.', 'fnref2')">2</sup></span>).</p>
+<h2 data-number="2.2" id="can-you-give-me-some-examples"><span
+class="header-section-number">2.2</span> Can you give me some
+examples?</h2>
+<p>The above definitions were great, but maybe it’s feeling a little too
+abstract at this point. Fair enough. Let’s outline a few common problems
+in the OR space.</p>
+<h3 data-number="2.2.1" id="traveling-salesman-problem"><span
+class="header-section-number">2.2.1</span> Traveling Salesman
+Problem</h3>
+<p>There are many well-known problems in the world of OR, but I reckon
+the <a
+href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">Traveling
+Salesman Problem</a> (TSP) is the best-known and most-loved among them.
+The setup is simple: Some old-timey door-to-door salesman is heading out
+on the road to sell his product to the masses. He plans to visit a
+certain group of cities, and thanks to his trusty atlas he knows the way
+between any pair of cities. Less clear, however, is the shortest path
+that will lead you through <em>all</em> of the cities, and this is the
+aim of the TSP: In which order should you visit the cities such that
+your total distance traveled is minimized?</p>
+<p>As I said, this a famous problem in the OR space. I think it’s due to
+the simple, relatable exposition, paired with the fact that it is
+actually quite computationally challenging. And yet despite the
+challenges, modern methods are able to solve problem instances where the
+number of cities is in the 10,000s! The image below shows the optimal
+tour through selected cities in the continental US<span href="#fn3"
+class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup onclick="footnoteOnTooltipClick('fn3Hover', '<b>Footnote 3:</b> You can tell from the image that this map is pretty old. <a href=@@@https://www.math.uwaterloo.ca/tsp/usa50/@@@>The site from which it came</a> tells a neat story about how this instance was solved, by hand, way back in 1954! There are some other interesting bits there too, well worth a read in my opinion.', 'fnref3')">3</sup></span>.</p>
+<figure>
+<img
+src="https://www.math.uwaterloo.ca/tsp/usa50/img/newsweek_medium.jpg"
+alt="The shortest tour through 49 US cities (“Waterloo TSP,” n.d.)" />
+<figcaption aria-hidden="true">The shortest tour through 49 US cities
+<span class="citation" data-cites="tspPic">(<a href="#ref-tspPic"
+role="doc-biblioref"><span>“Waterloo TSP,”</span>
+n.d.</a>)</span></figcaption>
+</figure>
+<h3 data-number="2.2.2" id="job-shop-scheduling"><span
+class="header-section-number">2.2.2</span> Job-shop scheduling</h3>
+<p>You run a machine shop, and have a certain number of jobs to complete
+in a day. Each job requires a certain number of tasks to be done by one
+of your many machines, and the tasks are at least partially ordered,
+such that you must complete the tasks in a certain order (e.g. you have
+to cut a piece of wood before you sand the edges). Each machine can only
+work on one task at a time. You get to decide the work schedule,
+assigning machines to tasks at certain times in the day. What is the
+schedule that lets you complete all the jobs in the least amount of
+time?</p>
+<h3 data-number="2.2.3" id="portfolio-optimization"><span
+class="header-section-number">2.2.3</span> Portfolio optimization</h3>
+<p>You have some money to invest, and a list of potential project/assets
+to invest in. You’d like to invest in a way that gives you a high
+expected return, but there is risk involved as well. Each project comes
+with its own risks, and some projects may be highly correlated such that
+failure in one would suggest a high chance of failure in another. How
+can you deploy your capital in a way that minimizes downside risk while
+still likely generating a good profit?</p>
+<h2 data-number="2.3" id="or-in-practice"><span
+class="header-section-number">2.3</span> OR in practice</h2>
+<p>So we’ve given a few broad classes of OR problems, but maybe this is
+still too abstract. Let’s get to real applications. Are people actually
+using OR out in the wild? Do these methods make a difference? In this
+section I’ll point you to some real-life case studies where OR methods
+have been used to great effect.</p>
+<h3 data-number="2.3.1" id="textbook-case-studies"><span
+class="header-section-number">2.3.1</span> Textbook case studies</h3>
+<p>Your textbook handily comes chock full of case studies explaining how
+companies have used OR to inform their decision-making. Below I’ve
+copied part of the summary table. Check out the book to get more
+background on anything that piques your interest.</p>
+<figure>
+<img src="images/or-case-studies.png"
+alt="Selected OR case studies (Hillier and Lieberman 2021)" />
+<figcaption aria-hidden="true">Selected OR case studies <span
+class="citation" data-cites="classText">(<a href="#ref-classText"
+role="doc-biblioref">Hillier and Lieberman 2021</a>)</span></figcaption>
+</figure>
+<p>It’s pretty staggering to look at the Annual Savings figures, which
+taken together sum to the billions. OR is an enormously valuable
+tool.</p>
+<h3 data-number="2.3.2" id="edelman-prize"><span
+class="header-section-number">2.3.2</span> Edelman Prize</h3>
+<p>Now, admittedly, some of those case studies are a little stale. But
+don’t fret, OR is still relevant in industry today. The <a
+href="https://www.informs.org/">Institute for Operations Research and
+Management Science (INFORMS)</a> annually gives an award called the
+Edelman Prize for the best application of OR methodologies in industry.
+You can take a look at the <a
+href="https://3449182.fs1.hubspotusercontent-na1.net/hubfs/3449182/2023_Edelman_Gala_Book.pdf">program
+for the 2023 edition of the award</a> and find cases submitted by names
+like DHL, Huawei, Lyft, and the winner Walmart.</p>
+<h2 data-number="2.4" id="a-brief-history-of-or"><span
+class="header-section-number">2.4</span> A brief history of OR</h2>
+<h2 data-number="2.5" id="topics-well-cover"><span
+class="header-section-number">2.5</span> Topics we’ll cover</h2>
+<h1 data-number="3" id="the-python-programming-language"><span
+class="header-section-number">3</span> The Python programming
+language</h1>
+<h2 data-number="3.1" id="google-colab-notebooks"><span
+class="header-section-number">3.1</span> Google Colab notebooks</h2>
+<p>https://colab.google/</p>
+<h2 data-number="3.2" id="some-python-basics"><span
+class="header-section-number">3.2</span> Some python basics</h2>
+<h3 data-number="3.2.1" id="something"><span
+class="header-section-number">3.2.1</span> something</h3>
+<h3 data-number="3.2.2" id="something-else"><span
+class="header-section-number">3.2.2</span> something else</h3>
+<h2 data-number="3.3" id="more-references"><span
+class="header-section-number">3.3</span> More references</h2>
+<h1 data-number="4" id="sec:lp"><span
+class="header-section-number">4</span> Linear Programming</h1>
+<div class="ytEmbedContainerContainer">
+<div class="ytEmbedContainer">
+<iframe src="https://www.youtube.com/embed/UmX4kyB2wfg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+</div>
+<p><a href="https://www.youtube.com/watch?v=UmX4kyB2wfg">Video
+Lecture</a></p>
+<p>A linear program is an optimization problem of the following
+form:</p>
+<p><span id="eq:id" class="eqnos"><span class="math display">
+\begin{align*}
+\min&amp;&amp;c^Tx&amp;\\
+\text{subject to}&amp;&amp;Ax&amp;\leq b\\
+&amp;&amp;x&amp;\geq0
+\end{align*}
+</span><span class="eqnos-number">(1)</span></span></p>
+<details>
+<summary>
+Note
+</summary>
+this is something I want to say in a note
+</details>
+<h2 data-number="4.1" id="new-subsection"><span
+class="header-section-number">4.1</span> New Subsection</h2>
+<p>this is a subsection for the section section <a
+href="#sec:lp">4</a>.</p>
+<h3 data-number="4.1.1" id="new-subsubsection"><span
+class="header-section-number">4.1.1</span> New Subsubsection</h3>
+<p>See eq. <a href="#eq:id">1</a>.</p>
+<h1 data-number="5" id="blah"><span
+class="header-section-number">5</span> Blah</h1>
+<h2 data-number="5.1"
+id="blahblahblahblahblah-blahblahblahblahblah-blahblahblahblahblah"><span
+class="header-section-number">5.1</span> BlahBlahBlahBlahBlah
+BlahBlahBlahBlahBlah BlahBlahBlahBlahBlah</h2>
+<h1 data-number="6" id="integer-programming"><span
+class="header-section-number">6</span> Integer Programming</h1>
+<p>An integer program is an optimization problem with form eq. <a
+href="#eq:id">1</a>, but also requiring <span
+class="math inline">x\in\mathbb{I}</span>.</p>
+<div id="pythagoras" class="theorem">
+<h4 data-number="6.0.0.1" id="pythagorass-theorem"><span
+class="header-section-number">6.0.0.1</span> Pythagoras’s Theorem</h4>
+<p>In a right triangle, the lengths of the two shorter sides <span
+class="math inline">a</span>, <span class="math inline">b</span> and the
+longer side <span class="math inline">c</span> stand in the relation</p>
+<p><span class="math display">
+a^2 + b^2 = c^2.
+</span></p>
+</div>
+<p><span class="math inline">\R</span></p>
+<h1 data-number="7" id="blah-1"><span
+class="header-section-number">7</span> Blah</h1>
+<h2 data-number="7.1" id="blahblah"><span
+class="header-section-number">7.1</span> BlahBlah</h2>
+<p>hey</p>
+<h1 id="References">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
+<div id="ref-classText" class="csl-entry" role="doc-biblioentry">
+Hillier, F. S., and G. J. Lieberman. 2021. <em>Introduction to
+Operations Research</em>. McGraw-Hill Education. <a
+href="https://books.google.com/books?id=gnhSzQEACAAJ">https://books.google.com/books?id=gnhSzQEACAAJ</a>.
+</div>
+<div id="ref-tspPic" class="csl-entry" role="doc-biblioentry">
+<span>“Waterloo TSP.”</span> n.d. <a
+href="https://www.math.uwaterloo.ca/tsp/"
+class="uri">https://www.math.uwaterloo.ca/tsp/</a>.
+</div>
+</div>
+</div>
+</body>
+</html>
