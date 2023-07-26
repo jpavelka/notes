@@ -1,7 +1,7 @@
 converted/*
-md_src/*
 .vscode/*
 *__pycache__*
+citations.md
 
 # Logs
 logs

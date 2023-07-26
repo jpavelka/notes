@@ -1,11 +1,20 @@
 <!-- TOC styling adapted from https://www.w3schools.com/howto/howto_js_sidenav.asp -->
 <style>
+    nav#TOC:nth-child(2) {
+        margin-top: 1rem;
+        box-shadow: rgba(0, 0, 0, 0.2) 2px 0px 10px 1px;
+    }
     nav#TOC li {
         list-style-type: none;
     }
 
     nav#TOC li {
         margin-left: -20pt;
+    }
+
+    nav#TOC > ul {
+        padding-left: 1.5rem;
+        margin-bottom: 3rem;
     }
 
     nav#TOC {
@@ -15,38 +24,52 @@
         z-index: 1;
         top: 0;
         left: 0;
-        background-color: #ddd;
+        background-color: #ebebeb;
         overflow-x: hidden;
-        padding-top: 20px;
+        padding-top: 1rem;
         transition: 0.5s;
+        overflow-y: auto;
     }
 
     nav#TOC a {
-        padding: 2px 2px;
         text-decoration: none;
-        font-size: 14pt;
+        font-size: max(14pt, min(5vw, 1.3rem));
         color: #000;
         display: block;
         transition: 0.3s;
+        padding-top: 0.2rem;
+        padding-bottom: 0.3rem;
+        border-bottom: 1pt solid lightgray;
     }
 
     nav#TOC a:hover {
-        color: #f1f1f1;
+        color: #888;
+    }
+
+    #tocTop {
+        height: 1.5em;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 0.5rem;
+        padding-bottom: 0.95rem;
+        position: fixed;
+        top: 0;
+        visibility: hidden;
+        background-color: #ebebeb;
+        z-index: 1;
+        border-bottom: 1pt solid gray;
     }
 
     .tocHeader {
-        top: 0;
-        font-size: 18pt !important;
-        margin-top: -10px;
-        margin-left: 15px;
+        font-size: max(14pt, min(1.5rem, 5vw));
+        padding-left: 0.5rem;
     }
 
-    .closebtn {
-        position: absolute;
-        top: 0;
-        right: 25px;
+    .closeBtn {
         font-size: 36px !important;
-        margin-left: 50px;
+        margin-right: 2rem;
+        margin-top: -0.5rem;
+        border: none !important;
     }
 
     #main {
@@ -66,11 +89,62 @@
 </style>
 <script>
     function openNav() {
-        document.getElementById("TOC").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
+        document.getElementById("TOC").style.width = "min(45%, 250px)";
+        document.getElementById("main").style.marginLeft = "calc(min(45%, 250px) / 2)";
+        document.getElementById("tocTop").style.width = "min(45%, 250px)";
+        document.getElementById("tocTop").style.visibility = "visible";
+        setTimeout(() => {
+            if (isTight()){
+                document.getElementById("main").style.marginLeft = 0;
+            }
+        }, 300)
     }
     function closeNav() {
         document.getElementById("TOC").style.width = "0";
         document.getElementById("main").style.marginLeft = "0";
+        document.getElementById("tocTop").style.visibility = "hidden";
+    }
+    function isTight() {
+        const mainLeft = document.getElementById('main').getBoundingClientRect().left
+        const tocRight = document.getElementById('TOC').getBoundingClientRect().right
+        return tocRight - mainLeft > 40
+    }
+    function closeNavIfSmall() {
+        if (isTight()){
+            closeNav()
+        }
+    }
+    function footnoteOnTooltipClick(id, innerHTML, refId) {
+        innerHTML = innerHTML.replaceAll('@@@', '"')
+        console.log(innerHTML);
+        const tooltipEl = document.getElementById(id);
+        if (tooltipEl == null) {
+            const newEl = document.createElement("span");
+            closeEl = document.createElement("div");
+            closeEl.classList = ['footnoteTooltipClose'];
+            closeEl.innerHTML = '&times;';
+            closeEl.setAttribute("onclick", "removeElById('" + id + "')");
+            newEl.appendChild(closeEl);
+            const refEl = document.getElementById(refId);
+            refEl.appendChild(newEl);
+            newEl.id = id;
+            newEl.innerHTML += innerHTML;
+            newEl.classList = ['footnoteTooltip'];
+        } else {
+            tooltipEl.remove();
+        }
+        
+    }
+    function removeElById(id) {
+        document.getElementById(id).remove();
+    }
+    window.onload = () => {
+        liEl = document.createElement('li');
+        aEl = document.createElement('a');
+        aEl.href = '#References';
+        aEl.innerHTML = 'References';
+        ulEl = document.getElementById('TOC').getElementsByTagName('ul')[0];
+        liEl.appendChild(aEl);
+        ulEl.appendChild(liEl);
     }
 </script>
