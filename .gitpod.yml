@@ -1,6 +1,7 @@
 tasks:
   - name: Setup Pandoc
-  - init: |
+    init: |
+      echo hello
       wget https://github.com/jgm/pandoc/releases/download/2.19.2/pandoc-2.19.2-1-amd64.deb -O pandoc.deb
       sudo dpkg -i pandoc.deb
       python -m pip install pandoc-fignos pandoc-eqnos pandoc-tablenos pandoc-secnos
